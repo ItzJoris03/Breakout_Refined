@@ -9,19 +9,21 @@ import com.breakout.input.ScoreList;
 
 
 
-/*
+/**
  * HighscoreList will represent a sorted list of a maximum of 10 items by descending order of score count which all exists in the ScoreList.
  */
 public class HighscoreList extends ScoreList {
-	private List<ScoreADT> highscores;
+	// Constants related to the Class
 	private static final int LIMIT = 10;
 	
+    // Fields
+	private List<ScoreADT> highscores;
 	private DefaultListModel<String> dlm;
 	
 	public HighscoreList() {
 		super();
-		dlm = new DefaultListModel<>();
-		highscores = new ArrayList<ScoreADT>();
+		this.dlm = new DefaultListModel<>();
+		this.highscores = new ArrayList<ScoreADT>();
 		
 		sort();
 	}
@@ -62,7 +64,5 @@ public class HighscoreList extends ScoreList {
 		}
 	}
 	
-	public void refresh() {
-		sort();
-	}
+	public void refresh() { sort(); }
 }

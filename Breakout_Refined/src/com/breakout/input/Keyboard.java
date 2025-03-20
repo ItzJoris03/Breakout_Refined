@@ -3,6 +3,9 @@ package com.breakout.input;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
+/**
+ * No adjustments made in this file - from GameEngine-V3 provided in the course.
+ */
 public class Keyboard {
 	HashMap<Key, Boolean> state;
 	public Keyboard() {

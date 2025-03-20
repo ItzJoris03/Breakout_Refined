@@ -3,20 +3,18 @@ package com.breakout.utils;
 import java.util.Date;
 
 public class ScoreADT {
+    // Fields
 	private String user;
 	private int score;
 	private Date date;
 	
-	public ScoreADT(String user, int score, Date date) {
+	public ScoreADT(String user, int score, Date date) { initFields(user, score, date); }
+	public ScoreADT(String user, int score) { initFields(user, score, new Date()); }
+	
+	private void initFields(String user, int score, Date date) {
 		this.user = user;
 		this.score = score;
 		this.date = date;
-	}
-	
-	public ScoreADT(String user, int score) {
-		this.user = user;
-		this.score = score;
-		this.date = new Date();
 	}
 	
 	public String getUser() { return this.user; }

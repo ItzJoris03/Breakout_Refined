@@ -6,16 +6,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class PixelFont {
-	public static String FILE = "src/com/breakout/assets/files/PressStart2P-Regular.ttf";
-	public static float DEFAULT_SIZE = 18;
-	public static float TITLE_SIZE = 60;
-	public static float SMALL_SIZE = 14;
+	// Constants related to the Class
+	public static final String FILE = "src/com/breakout/assets/files/PressStart2P-Regular.ttf";
+	public static final float DEFAULT_SIZE = 18;
+	public static final float TITLE_SIZE = 60;
+	public static final float SMALL_SIZE = 14;
 	
 	// Overload  functions for loading a custom font with default or custom size
 	public static Font loadFont() { return readFont(PixelFont.DEFAULT_SIZE); }
 	public static Font loadFont(int size) { return readFont((float)size); }
 	public static Font loadFont(float size) { return readFont(size); }
 	
+	// Reads the font from the file and return it as normal Font
 	private static Font readFont(float size) {
 		try {
 			File fontFile = new File(PixelFont.FILE);

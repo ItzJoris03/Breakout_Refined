@@ -14,7 +14,10 @@ import com.breakout.levels.ScoreManager;
 import com.breakout.utils.ScoreADT;
 
 public abstract class ScoreList {
+	// Constants related to the Class
 	private static final SimpleDateFormat DATE = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+
+	// Fields
 	private static List<ScoreADT> scores;
 	
 	public ScoreList() {
@@ -31,6 +34,11 @@ public abstract class ScoreList {
 	public static void addScore(String name, int score, Date date) { addScore(new ScoreADT(name, score, date)); }
 	public static void addScore(ScoreADT score) { scores.add(score); }
 	
+	/**
+	 * Parsing the date by string or provide the date of today if string cannot be parsed.
+	 * @param dateString
+	 * @return Date
+	 */
 	private static Date parseDate(String dateString) {
         try {
             return DATE.parse(dateString);
@@ -39,6 +47,11 @@ public abstract class ScoreList {
         }
     }
 	
+	/**
+	 * Saving the score to the file by playername and date.
+	 * @param playerName
+	 * @param currentScore
+	 */
 	public static void saveScore(String playerName, int currentScore) {
 		addScore(playerName, currentScore);
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(ScoreManager.FILE))) {
@@ -54,6 +67,10 @@ public abstract class ScoreList {
 	public abstract List<ScoreADT> sort();	
 	public static final List<ScoreADT> getScores() { return loadScores(); }
 	
+	/**
+	 * Loading the scores saving the the scores files.
+	 * @return List<ScoreADT>
+	 */
 	public static final List<ScoreADT> loadScores() {
 		if(scores.isEmpty()) {		
 			try (BufferedReader reader = new BufferedReader(new FileReader(ScoreManager.FILE))) {
@@ -63,8 +80,6 @@ public abstract class ScoreList {
 	
 		            // Skip empty lines
 		            if (line.isEmpty()) continue;
-	
-//		            System.out.println("Reading line: " + line);
 	
 		            String[] parts = line.split(" - ");
 		            if (parts.length == 2) {
@@ -79,15 +94,9 @@ public abstract class ScoreList {
 		                Date date = parseDate(scoreDateParts.length > 1 ? scoreDateParts[1].replace(")", "").trim() : "");
 	
 		                addScore(playerName, score, date);
-	
-//		                System.out.println("Parsed Score: " + score + " for Player: " + playerName);
-		            } else {
-//		                System.out.println("Skipping malformed line: " + line);
 		            }
 		        }
-		    } catch (IOException e) {
-		        System.out.println("No high scores found, starting fresh.");
-		    }
+		    } catch (IOException e) { e.printStackTrace(); }
 		}
 		
 		return scores;

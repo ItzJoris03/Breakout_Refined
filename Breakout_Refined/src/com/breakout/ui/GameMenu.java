@@ -12,13 +12,14 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class GameMenu extends JPanel {
+	// Constants related to the Class
     private static final int GUI_INSETS = 10;
 	private static final int DEFAULT_INSETS = 5;
 	private static final int MAX_WIDTH_COMPONENT = 250;
 	private static final int MAX_HEIGHT_COMPONENT = 50;
-	
 	private static final Color COLOR_BUTTONS = new Color(50, 50, 50); 
 	
+	// Fields
 	private GridBagConstraints gbc;
 	private JTextField nameField;
 	
@@ -43,25 +44,16 @@ public class GameMenu extends JPanel {
 		
 		addComponent(spacer());		
 		
-		this.createNameComponent();
+		createNameComponent();
 		     
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setOpaque(false);
         
         JButton playButton = createButton("-  Play  -", optionFont, startGameListener);
-//        playButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String playerName = nameField.getText();
-//                String selectedDifficulty = difficultySelector.getSelectedDifficulty();
-//                JOptionPane.showMessageDialog(GameMenu.this, "Starting game for " + playerName + " on " + selectedDifficulty + " difficulty!");
-//            }
-//        });
         
         ActionListener dummy = e -> System.out.println("Button Pressed");
         
         JButton settingsButton = createButton("- Settings -", optionFont, dummy);
-        
         
         GridBagConstraints buttonGBC = new GridBagConstraints();
         buttonGBC.insets = new Insets(0, DEFAULT_INSETS, 0, DEFAULT_INSETS);
@@ -120,8 +112,6 @@ public class GameMenu extends JPanel {
 	    addComponent(spacer());
 	}
 
-
-
 	private JTextField createNameField(Font font, int size) {
 		JTextField textField = new JTextField(MAX_WIDTH_COMPONENT/font.getSize());
 		textField.setFont(font);
@@ -162,8 +152,17 @@ public class GameMenu extends JPanel {
 		gbc.gridy++;
 	}
 	
+	/**
+	 * Thanks with help of ChatGPT - Limits the text input by maxLength. Without ChatGPT, I couldn't figure this out properly.
+	 * @param textField
+	 * @param maxLength
+	 */
 	private void limitTextField(JTextField textField, int maxLength) {
+		// Apply a filter to the textField
 	    ((AbstractDocument) textField.getDocument()).setDocumentFilter(new DocumentFilter() {
+	    	/**
+	    	 * Overrides the insertString which calls by every input and set the text to uppercase and limits is by the maxLength
+	    	 */
 	        @Override
 	        public void insertString(FilterBypass fb, int offset, String text, AttributeSet attr) throws BadLocationException {
 	            if ((fb.getDocument().getLength() + text.length()) <= maxLength) {
@@ -171,6 +170,9 @@ public class GameMenu extends JPanel {
 	            }
 	        }
 
+	        /**
+	    	 * Overrides the replace which calls by every input adjustment with the same logic as insertString
+	    	 */
 	        @Override
 	        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attr) throws BadLocationException {
 	            if ((fb.getDocument().getLength() - length + text.length()) <= maxLength) {
@@ -180,21 +182,5 @@ public class GameMenu extends JPanel {
 	    });
 	}
 	
-	public String getPlayerName() {
-		return nameField.getText().trim();
-	}
-	
-	public String getPlayerInitials() {
-	    String[] names = nameField.getText().trim().split("\\s+");
-	    StringBuilder initials = new StringBuilder();
-
-	    for (String name : names) {
-	        if (!name.isEmpty()) {
-	            initials.append(Character.toUpperCase(name.charAt(0)));
-	        }
-	    }
-
-	    return initials.toString();
-	}
-
+	public String getPlayerName() { return nameField.getText().trim(); }
 }

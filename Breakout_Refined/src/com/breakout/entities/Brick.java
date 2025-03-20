@@ -3,55 +3,62 @@ package com.breakout.entities;
 import com.breakout.input.Keyboard;
 
 public class Brick extends TexturedSprite {
-	private final static String TEXTURE_FOLDER = "/com/breakout/assets/images/bricks/sp_brick_";
-	private final static String TEXTURE_BLUE = "blue.png";
-	private final static String TEXTURE_BLACK = "black.png";
-	private final static String TEXTURE_GOLD = "gold_strip3.png";
-	private final static String TEXTURE_GREEN = "green.png";
-	private final static String TEXTURE_ORANGE = "orange.png";
-	private final static String TEXTURE_PINK = "pink.png";
-	private final static String TEXTURE_PURPLE = "purple.png";
-	private final static String TEXTURE_RED = "red.png";
-	private final static String TEXTURE_SILVER = "silver_strip2.png";
-	private final static String TEXTURE_WHITE = "white.png";
-	private final static String TEXTURE_REINFORCED_BLUE = "reinforced_blue.png";
-	private final static String TEXTURE_REINFORCED_GREEN = "reinforced_green.png";
-	private final static String TEXTURE_REINFORCED_RED = "reinforced_red.png";
+	// Constants related to the Class
+	// - All textures
+	private static final String TEXTURE_FOLDER = "/com/breakout/assets/images/bricks/sp_brick_";
+	private static final String TEXTURE_BLUE = "blue.png";
+	private static final String TEXTURE_BLACK = "black.png";
+	private static final String TEXTURE_GOLD = "gold_strip3.png";
+	private static final String TEXTURE_GREEN = "green.png";
+	private static final String TEXTURE_ORANGE = "orange.png";
+	private static final String TEXTURE_PINK = "pink.png";
+	private static final String TEXTURE_PURPLE = "purple.png";
+	private static final String TEXTURE_RED = "red.png";
+	private static final String TEXTURE_SILVER = "silver_strip2.png";
+	private static final String TEXTURE_WHITE = "white.png";
+	private static final String TEXTURE_REINFORCED_BLUE = "reinforced_blue.png";
+	private static final String TEXTURE_REINFORCED_GREEN = "reinforced_green.png";
+	private static final String TEXTURE_REINFORCED_RED = "reinforced_red.png";
 	
-	private final static int DEFAULT_VALUE = 10;
+	// - Default value
+	private static final int DEFAULT_VALUE = 10;
 	
-	private final static int HARDNESS_BLUE = 1;
-	private final static int HARDNESS_BLACK = 1;
-	private final static int HARDNESS_GOLD = 3;
-	private final static int HARDNESS_GREEN = 1;
-	private final static int HARDNESS_ORANGE = 1;
-	private final static int HARDNESS_PINK = 1;
-	private final static int HARDNESS_PURPLE = 1;
-	private final static int HARDNESS_RED = 1;
-	private final static int HARDNESS_SILVER = 2;
-	private final static int HARDNESS_WHITE = 1;
-	private final static int HARDNESS_REINFORCED_BLUE = 2;
-	private final static int HARDNESS_REINFORCED_GREEN = 2;
-	private final static int HARDNESS_REINFORCED_RED = 2;
+	// - Brick difficulties / hardness
+	private static final int HARDNESS_BLUE = 1;
+	private static final int HARDNESS_BLACK = 1;
+	private static final int HARDNESS_GOLD = 3;
+	private static final int HARDNESS_GREEN = 1;
+	private static final int HARDNESS_ORANGE = 1;
+	private static final int HARDNESS_PINK = 1;
+	private static final int HARDNESS_PURPLE = 1;
+	private static final int HARDNESS_RED = 1;
+	private static final int HARDNESS_SILVER = 2;
+	private static final int HARDNESS_WHITE = 1;
+	private static final int HARDNESS_REINFORCED_BLUE = 2;
+	private static final int HARDNESS_REINFORCED_GREEN = 2;
+	private static final int HARDNESS_REINFORCED_RED = 2;
 	
-	public final static int TEXTURE_WIDTH = 19;
-	public final static int TEXTURE_HEIGH = 9;
+	// - Texture width and height
+	public static final int TEXTURE_WIDTH = 19;
+	public static final int TEXTURE_HEIGH = 9;
 	
-	private int value;
+	// Fields
+	private int value, damage, hardness;
 	private String texture;
 	private BrickType type;
-	private int damage;
-	private int hardness;
 
 	public Brick(int x, int y, double scale, BrickType type) {
 		super(x, y, TEXTURE_WIDTH, TEXTURE_HEIGH, scale);
 		this.type = type;
-		texture = TEXTURE_FOLDER;
-		damage = 0;
+		this.texture = TEXTURE_FOLDER;
+		this.damage = 0;
 		
 		initBrick();
 	}
 	
+	/**
+	 * Initializing the brick by given type and calculating it's value
+	 */
 	private void initBrick() {
 		switch(type) {
 		case BrickType.BLUE:
@@ -115,9 +122,14 @@ public class Brick extends TexturedSprite {
 	
 	public int getPoints() { return value; }
 	
+	/**
+	 * Adds damage to the brick and return the new brick with the applied damage
+	 * @return Brick
+	 */
 	public Brick addDamage() {
 		damage++;
 		
+		// Adjust the reinforced textures to their equivalent normal brick textures.
 		switch(type) {
 		case BrickType.REINFORCED_BLUE:
 			texture = TEXTURE_FOLDER + TEXTURE_BLUE;
@@ -137,14 +149,16 @@ public class Brick extends TexturedSprite {
 			damage = 0;
 			type = BrickType.GREEN;
 			break;
-		default:
-			break;
+		default:	break;
 		}
 		
+		// Returning null if damage is equal to hardness
 		if(damage == hardness) return null;
 		
+		// Setting their equivalent textures by damage (damage works as texture offset for certain textures)
 		setTexture(texture, TEXTURE_WIDTH*damage);
 		
+		// Return this object after applied damage
 		return this;
 	}
 

@@ -3,10 +3,13 @@ package com.breakout.entities;
 import com.breakout.input.Keyboard;
 
 public class Hearts extends TexturedSprite {
-	private final static String TEXTURE = "/com/breakout/assets/images/UI/sp_heart_strip3.png";
-	public final static int TEXTURE_WIDTH = 39;
-	public final static int TEXTURE_HEIGHT = 12;
-	private final static int MAX_TOTAL = 0;
+	// Constants related to the Class
+	private static final String TEXTURE = "/com/breakout/assets/images/UI/sp_heart_strip3.png";
+	private static final int MAX_TOTAL = 0;
+	public static final int TEXTURE_WIDTH = 39;
+	public static final int TEXTURE_HEIGHT = 12;
+	
+	// Fields
 	private int total;
 	
 	public Hearts(int x, int y, double scale) {

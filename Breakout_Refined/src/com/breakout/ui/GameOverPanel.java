@@ -7,14 +7,15 @@ import java.awt.event.ActionListener;
 import com.breakout.Main;
 
 public class GameOverPanel extends JPanel {
+	// Constants related to the Class
     private static final int GUI_INSETS = 10;
     private static final int MAX_WIDTH_COMPONENT = 500;
     private static final int MAX_HEIGHT_COMPONENT = 50;
     private static final Color COLOR_BUTTONS = new Color(50, 50, 50);
 
+    // Fields
     private GridBagConstraints gbc;
-    private JLabel titleLabel;
-    private JLabel scoreLabel;
+    private JLabel titleLabel, scoreLabel;
 
     public GameOverPanel(ActionListener playAgainListener, ActionListener backToMenuListener) {
         setLayout(new GridBagLayout());
@@ -25,16 +26,16 @@ public class GameOverPanel extends JPanel {
         Font optionFont = PixelFont.loadFont();
 
         // Title (Initially Empty)
-        titleLabel = createTitle("");
+        this.titleLabel = createTitle("");
         addComponent(titleLabel);
 
         addComponent(spacer());
 
         // Score Display (Initially Empty)
-        scoreLabel = new JLabel("", SwingConstants.CENTER);
-        scoreLabel.setFont(PixelFont.loadFont());
-        scoreLabel.setForeground(Color.WHITE);
-        addComponent(scoreLabel);
+        this.scoreLabel = new JLabel("", SwingConstants.CENTER);
+        this.scoreLabel.setFont(PixelFont.loadFont());
+        this.scoreLabel.setForeground(Color.WHITE);
+        addComponent(this.scoreLabel);
 
         addComponent(spacer());
 
