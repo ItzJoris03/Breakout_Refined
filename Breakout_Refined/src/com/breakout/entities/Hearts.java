@@ -5,7 +5,7 @@ import com.breakout.input.Keyboard;
 public class Hearts extends TexturedSprite {
 	// Constants related to the Class
 	private static final String TEXTURE = "/com/breakout/assets/images/UI/sp_heart_strip3.png";
-	private static final int MAX_TOTAL = 0;
+	private static final int MAX_TOTAL = 2;
 	public static final int TEXTURE_WIDTH = 39;
 	public static final int TEXTURE_HEIGHT = 12;
 	
