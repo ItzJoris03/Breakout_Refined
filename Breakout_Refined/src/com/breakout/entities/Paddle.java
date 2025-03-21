@@ -4,7 +4,6 @@ import com.breakout.GameBoard;
 import com.breakout.core.Engine;
 import com.breakout.input.Key;
 import com.breakout.input.Keyboard;
-import com.breakout.physics.IAnimate;
 
 public class Paddle extends TexturedSprite implements IAnimate {
 	// Constants related to the Class
